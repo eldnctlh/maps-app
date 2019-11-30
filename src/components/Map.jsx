@@ -33,7 +33,6 @@ const MyMapComponent = compose(
     }),
     withScriptjs,
     withGoogleMap,
-    withState('places', 'updatePlaces', ''),
     withHandlers(() => {
         const refs = {
             map: undefined,
@@ -45,7 +44,6 @@ const MyMapComponent = compose(
             },
             fetchPlaces: ({updateMarkers}) => (type) => {
                 let places;
-                console.log(type)
                 const bounds = refs.map.getBounds();
                 const service = new google.maps.places.PlacesService(refs.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED);
                 const request = {
