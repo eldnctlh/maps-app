@@ -2,19 +2,35 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: ["babel-polyfill", "./src/index.js"],
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js"
     },
+    devServer: {
+        contentBase: path.join(__dirname, '/dist'),
+        compress: true,
+        port: 8000
+    },
     module: {
         rules: [
             {
+                exclude: /node_modules/,
+                test: /\.jsx$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        plugins: ['@babel/plugin-transform-react-jsx']
+                    }
+                }
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                },
+                loader: "babel-loader",
+                query: {
+                    plugins: ['transform-class-properties']
+                }
             },
             {
                 test: /\.less$/,
@@ -35,6 +51,9 @@ module.exports = {
                 use: ["style-loader", "css-loader"]
             }
         ]
+    },
+    resolve: {
+        extensions: ['*', '.js', '.jsx'],
     },
     plugins: [
         new HtmlWebpackPlugin({
