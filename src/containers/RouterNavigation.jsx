@@ -1,31 +1,29 @@
-import React, {Component, Fragment} from 'react';
+import React from 'react';
 import {
     HashRouter as Router,
     Switch,
     Route
 } from "react-router-dom";
 import Header from '../components/Header';
+import About from '../components/About';
+import Auth from '../components/Auth';
 import MapContainer from './MapContainer';
 
-class RouterNavigation extends Component {
-    render() {
-        return (
-            <Router>
-                <Header />
-                <Switch>
-                    <Route path="/about">
-                        <p>sss</p>
-                    </Route>
-                    <Route path="/auth">
-                        <p>ddd</p>
-                    </Route>
-                    <Route path="/">
-                        <MapContainer />
-                    </Route>
-                </Switch>
-            </Router>
-        )
-    }
-}
+const RouterNavigation = () => (
+    <Router>
+        <Header />
+        <Switch>
+            <Route path="/about">
+                <About />
+            </Route>
+            <Route path="/auth">
+                <Auth />
+            </Route>
+            <Route path="/">
+                <MapContainer />
+            </Route>
+        </Switch>
+    </Router>
+)
 
 export default RouterNavigation;

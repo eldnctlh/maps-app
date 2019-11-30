@@ -3,6 +3,7 @@ import { getDataFromStorage, setDataToStorage } from "../../services/LocalStorag
 export const ADD_MARKER = 'ADD_MARKERS';
 export const DELETE_MARKER = 'DELETE_MARKER';
 export const SHOW_MARKERS = 'SHOW_MARKERS';
+export const UPDATE_MARKERS = 'UPDATE_MARKERS';
 
 export const addMarker = data => {
     return {
@@ -24,6 +25,15 @@ export const showMarkers =  () => {
         dispatch({
             type: SHOW_MARKERS,
             data: savedMarkers
+        })
+    }
+};
+
+export const updateMarkers =  (markers) => {
+    return async dispatch => {
+        dispatch({
+            type: UPDATE_MARKERS,
+            data: markers
         })
     }
 };

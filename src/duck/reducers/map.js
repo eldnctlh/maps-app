@@ -1,4 +1,4 @@
-import { ADD_MARKER, DELETE_MARKER, SHOW_MARKERS } from '../actions/map';
+import { ADD_MARKER, DELETE_MARKER, SHOW_MARKERS, UPDATE_MARKERS } from '../actions/map';
 import { removeDuplicates } from "../../helpers/utils";
 
 const initialState = {
@@ -22,6 +22,11 @@ const map = (state = initialState, action) => {
             return {
                 ...state,
                 markers: newMarkers,
+            };
+        case UPDATE_MARKERS:
+            return {
+                ...state,
+                markers: action.data,
             };
         default:
             return state;

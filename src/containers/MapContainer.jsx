@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
-import { Map } from '../components/Map';
+import MapWrapper from '../components/Map';
 import { MapTools } from '../components/MapTools';
-import { MapFilters } from '../components/MapFilters';
 import { connect } from 'react-redux'
 import {
     addMarker,
     showMarkers,
     saveMarkers,
-    deleteMarker
+    deleteMarker,
+    updateMarkers,
 } from '../duck/actions/map'
 
 class MapContainer extends Component {
@@ -31,34 +31,21 @@ class MapContainer extends Component {
         lng: e.latLng.lng()
     })
 
-    onPlacesChanged = (a, b,c) => {
-        console.log(a);
-        console.log(b);
-        console.log(c);
-    }
-
     render() {
-        const { markers, saveMarkers, showMarkers } = this.props;
+        const { markers, saveMarkers, showMarkers, updateMarkers } = this.props;
         return (
-            <div>
-                <div className={'buttons'}>
-                    <MapTools
-                        saveMarkers={saveMarkers}
-                        showMarkers={showMarkers}
-                    />
-                    <MapFilters />
-                </div>
-                <Map
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQm-iPM-oZCaSdnJJXp9fWuhZviOGB0kA&v=3.exp&libraries=geometry,drawing,places"
-                    loadingElement={<div style={{ height: `100%` }} />}
-                    containerElement={<div style={{ height: `400px` }} />}
-                    mapElement={<div style={{ height: `100%` }} />}
-                    onPlacesChanged={this.onPlacesChanged}
+            <Fragment>
+                <MapTools
+                    saveMarkers={saveMarkers}
+                    showMarkers={showMarkers}
+                />
+                <MapWrapper
+                    markers={markers}
+                    updateMarkers={updateMarkers}
                     onMapClick={this.onMapClick}
                     deleteMarker={this.deleteMarker}
-                    markers={markers}
                 />
-            </div>
+            </Fragment>
         );
     }
 }
@@ -74,6 +61,7 @@ const mapDispatchToProps = dispatch => ({
     deleteMarker: data => dispatch(deleteMarker(data)),
     showMarkers: () => dispatch(showMarkers()),
     saveMarkers: () => dispatch(saveMarkers()),
+    updateMarkers: (markers) => dispatch(updateMarkers(markers)),
 })
 
 export default connect(
